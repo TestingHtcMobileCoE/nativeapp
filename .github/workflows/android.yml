@@ -19,5 +19,9 @@ jobs:
           npm install
       - name: Build Android Release
         run: |
-       cd android && ./gradlew clean buildDebug -x lint && cd .. && npm react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug 
-      
+          cd android && ./gradlew clean buildDebug -x lint
+      - name: change
+       run: cd ..
+       run: npm react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+       run: cd android && ./gradlew assembleDebug 
+      - name: Upload Artifact
