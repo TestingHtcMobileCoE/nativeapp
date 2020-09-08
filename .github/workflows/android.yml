@@ -18,6 +18,9 @@ jobs:
         run: |
           npm install
 
+      - name: Build for Android
+        run: |
+         cd android && ./gradlew clean buildDebug -x lint
       - name: Build Android re
         run: |
-          cd android && ./gradlew assembleDebug 
+          cd android && ./gradlew assembleDebug
