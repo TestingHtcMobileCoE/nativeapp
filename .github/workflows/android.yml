@@ -20,4 +20,4 @@ jobs:
 
       - name: Build Android re
         run: |
-          ./gradlew assembleDebug 
+          cd android && ./gradlew assembleDebug 
