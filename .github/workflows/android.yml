@@ -22,7 +22,7 @@ jobs:
           cd android && ./gradlew clean buildDebug -x lint
 
       - name: Build for Android
-        run: cd .. && npm react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+        run: cd .. && npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
         
       - name: Build Android re
         run: |
