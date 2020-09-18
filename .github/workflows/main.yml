@@ -14,15 +14,12 @@ jobs:
     runs-on: self-hosted
     steps: 
       - uses: actions/checkout@v2
-      - name: Install npm dependencies
-        run: |
-          npm install
       - name: Changing directory
         run: |
           cd ios
       - name: Build app
         run: |       
-          xcodebuild -workspace MyReactNative.xcworkspace -scheme MyReactNative archive -archivePath MyReactNative.xcarchive -allowProvisioningUpdates
+          xcodebuild -workspace ./MyReactNative.xcworkspace -scheme MyReactNative archive -archivePath MyReactNative.xcarchive -allowProvisioningUpdates
           xcodebuild -exportArchive -archivePath ./MyReactNative.xcarchive -exportPath ./build -exportOptionsPlist MyReactNative/Info.plist
           mv MyReactNative.ipa ..MyReactNative.ipa
       - name: Upload Artifact
