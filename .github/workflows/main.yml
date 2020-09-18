@@ -17,9 +17,9 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
-      - name: Install pod dependencies
+      - name: Changing directory
         run: |
-          cd ios && pod install
+          cd ios
       - name: Build app
         run: |       
           xcodebuild -workspace MyReactNative.xcworkspace -scheme MyReactNative archive -archivePath MyReactNative.xcarchive -allowProvisioningUpdates
