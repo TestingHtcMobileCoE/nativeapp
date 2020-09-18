@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+
+name: IOSBUILD
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+ install-and-test:
+    runs-on: self-hosted
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: |
+          npm install
+      - name: Install pod dependencies
+        run: |
+          cd ios && pod install
+      - name: Build app
+        run: |       
+          xcodebuild -workspace MyReactNative.xcworkspace -scheme MyReactNative archive -archivePath MyReactNative.xcarchive -allowProvisioningUpdates
+          xcodebuild -exportArchive -archivePath ./MyReactNative.xcarchive -exportPath ./build -exportOptionsPlist MyReactNative/Info.plist
+          mv MyReactNative.ipa ..MyReactNative.ipa
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: myapp.ipa
+          path: ios/build/
