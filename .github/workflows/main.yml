@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
- Android Relese:
+ Android_Relese:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
