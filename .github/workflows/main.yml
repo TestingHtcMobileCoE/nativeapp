@@ -6,9 +6,9 @@ name: Android/CI-CD
 # events but only for the master branch
 on:
   push:
-    branches:  [origin/initial_appcentre]
-  pull_request:
-    branches: [origin/initial_appcentre]
+    branches: 
+      - initial_appcentre
+  
 jobs:
  Android_Relese:
     runs-on: ubuntu-latest
