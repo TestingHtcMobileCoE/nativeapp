@@ -7,10 +7,10 @@ name: Android/CI-CD
 on:
   push:
     branches: 
-    - 'initial_appcentre'
+    - 'origin/initial_appcentre'
   pull_request:
     branches: 
-    - 'initial_appcentre'
+    - 'origin/initial_appcentre'
 jobs:
  Android_Relese:
     runs-on: ubuntu-latest
