@@ -19,7 +19,7 @@ jobs:
       - name: Unit Test
         run: |
           npm run-script test
-      - name: The job has failed
+      - name: The job has failed 
         if: ${{ failure() }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
