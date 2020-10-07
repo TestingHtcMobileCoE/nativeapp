@@ -19,9 +19,9 @@ jobs:
       - name: Unit Test
         run: |
           npm run-script test
-      - name: The job has failed 
-        if: ${{ failure() }}
+     
       - name: Upload Artifact
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v1
         with:
           name: unit_test_result
