@@ -63,7 +63,7 @@ jobs:
       - name: Build ios app
         run: |       
           cd ios && xcodebuild -workspace MyReactNative.xcworkspace -scheme MyReactNative archive -archivePath MyReactNative.xcarchive -allowProvisioningUpdates
-          xcodebuild -exportArchive -archivePath ./MyReactNative.xcarchive -exportPath ./build -exportOptionsPlist MyReactNative/Info.plist
+          xcodebuild -exportArchive -archivePath ./MyReactNative.xcarchive -exportPath ./build -exportOptionsPlist ExportOptions.plist
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
