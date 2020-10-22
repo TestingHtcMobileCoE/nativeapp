@@ -19,19 +19,16 @@ jobs:
        XC_ARCHIVE_PATH: ${{ './MyReactNative.xcarchive' }}
        XC_EXPORT_PATH: ${{ './artifacts/' }}
        XC_EXPORT_OPTIONS_FILE_PATH: ${{ './ExportOptions.plist' }}
-       ENCRYPTED_CERTS_FILE_PATH: ${{ './GithubCertificates.p12.gpg' }}
-       DECRYPTED_CERTS_FILE_PATH: ${{ './GithubCertificates.p12' }}
-       ENCRYPTED_PROVISION_FILE_PATH: ${{ './provisioning.tar.gz.gpg' }}
-       DECRYPTED_PROVISION_FILE_PATH: ${{ './provisioning.tar.gz' }}
+       ENCRYPTED_CERTS_FILE_PATH: ${{ 'GithubCertificates.p12.gpg' }}
+       DECRYPTED_CERTS_FILE_PATH: ${{ 'GithubCertificates.p12' }}
+       ENCRYPTED_PROVISION_FILE_PATH: ${{ 'provisioning.tar.gz.gpg' }}
+       DECRYPTED_PROVISION_FILE_PATH: ${{ 'provisioning.tar.gz' }}
        CERTS_ENCRYPTION_PWD: ${{ secrets.CERTIFICATE_PASSWORD }}
        PROVISION_ENCRYPTION_PWD: ${{ secrets.CERTIFICATE_PASSWORD }}
        CERTS_EXPORT_PWD: ${{ secrets.CERTIFICATE_PASSWORD }}
        KEYCHAIN: ${{ 'test.keychain' }}
       steps: 
       - uses: actions/checkout@v2
-      - name: Install gpg
-        run: |
-         brew install gnupg
       - name: Install npm dependencies
         run: |
           npm install
@@ -51,7 +48,7 @@ jobs:
          security list-keychains
       - name: Configure Code Signing
         run: |
-         ls
+         cd ios
          gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase "$CERTS_ENCRYPTION_PWD" "$ENCRYPTED_CERTS_FILE_PATH"
          gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISION_ENCRYPTION_PWD" "$ENCRYPTED_PROVISION_FILE_PATH"
          security import "$DECRYPTED_CERTS_FILE_PATH" -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
