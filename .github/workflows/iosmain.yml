@@ -67,5 +67,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: myapp.ipa
+          name: myappA.ipa
           path: ios/build/
