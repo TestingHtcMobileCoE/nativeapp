@@ -153,6 +153,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = YA5NH562EY;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -277,6 +278,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = YA5NH562EY;
 				ENABLE_BITCODE = NO;
@@ -293,8 +295,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.name.MyReactNative;
+				PRODUCT_BUNDLE_IDENTIFIER = com.htc.MyReactNative;
 				PRODUCT_NAME = MyReactNative;
+				PROVISIONING_PROFILE_SPECIFIER = "MyReactnative Dev Profile";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -307,6 +310,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = YA5NH562EY;
 				INFOPLIST_FILE = MyReactNative/Info.plist;
@@ -318,8 +322,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.name.MyReactNative;
+				PRODUCT_BUNDLE_IDENTIFIER = com.htc.MyReactNative;
 				PRODUCT_NAME = MyReactNative;
+				PROVISIONING_PROFILE_SPECIFIER = "MyReactnative Dev Profile";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
