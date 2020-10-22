@@ -5,28 +5,67 @@ name: IOSBUILD
 # events but only for the master branch
 on:
   push:
-    branches: [ initial_appcentre ]
+    branches: [ master ]
   pull_request:
-    branches: [ initial_appcentre ]
+    branches: [ master ]
 jobs:
  IOS_RUN:
-      runs-on: self-hosted
+      runs-on: macos-latest
+      env:
+       XC_VERSION: ${{ '11.4' }}
+       XC_SCHEME: ${{ 'MyReactNative' }}
+       XC_CONFIGURATION: ${{ 'Release' }}
+       XC_WORKSPACE: ${{ 'MyReactNative.xcworkspace' }}
+       XC_ARCHIVE_PATH: ${{ './MyReactNative.xcarchive' }}
+       XC_EXPORT_PATH: ${{ './artifacts/' }}
+       XC_EXPORT_OPTIONS_FILE_PATH: ${{ './ExportOptions.plist' }}
+       ENCRYPTED_CERTS_FILE_PATH: ${{ './GithubCertificates.p12.gpg' }}
+       DECRYPTED_CERTS_FILE_PATH: ${{ './GithubCertificates.p12' }}
+       ENCRYPTED_PROVISION_FILE_PATH: ${{ './provisioning.tar.gz.gpg' }}
+       DECRYPTED_PROVISION_FILE_PATH: ${{ './provisioning.tar.gz' }}
+       CERTS_ENCRYPTION_PWD: ${{ secrets.CERTIFICATE_PASSWORD }}
+       PROVISION_ENCRYPTION_PWD: ${{ secrets.CERTIFICATE_PASSWORD }}
+       CERTS_EXPORT_PWD: ${{ secrets.CERTIFICATE_PASSWORD }}
+       KEYCHAIN: ${{ 'test.keychain' }}
       steps: 
       - uses: actions/checkout@v2
+      - name: Install gpg
+        run: |
+         brew install gnupg
       - name: Install npm dependencies
         run: |
           npm install
       - name: Install pod dependencies
         run: |
           cd ios && npx pod-install
+      
+      - name: Select latest Xcode
+        run: "sudo xcode-select -s /Applications/Xcode_$XC_VERSION.app"
+      - name: Configure Keychain
+        run: |
+         security create-keychain -p "" "$KEYCHAIN"
+         security list-keychains -s "$KEYCHAIN"
+         security default-keychain -s "$KEYCHAIN"
+         security unlock-keychain -p "" "$KEYCHAIN"
+         security set-keychain-settings
+         security list-keychains
+      - name: Configure Code Signing
+        run: |
+         gpg -d -o "$DECRYPTED_CERTS_FILE_PATH" --pinentry-mode=loopback --passphrase "$CERTS_ENCRYPTION_PWD" "$ENCRYPTED_CERTS_FILE_PATH"
+         gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISION_ENCRYPTION_PWD" "$ENCRYPTED_PROVISION_FILE_PATH"
+         security import "$DECRYPTED_CERTS_FILE_PATH" -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
+         security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
+         tar xzvf $DECRYPTED_PROVISION_FILE_PATH
+         mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+         for PROVISION in `ls ./*.mobileprovision`
+         do
+          UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
+          cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
+         done
       - name: Build ios app
         run: |       
           cd ios && xcodebuild -workspace MyReactNative.xcworkspace -scheme MyReactNative archive -archivePath MyReactNative.xcarchive -allowProvisioningUpdates
           xcodebuild -exportArchive -archivePath ./MyReactNative.xcarchive -exportPath ./build -exportOptionsPlist MyReactNative/Info.plist
-      - name: Deploy to App Center
-        run: |
-          npm install appcenter-cli@2.3.3
-          npx appcenter distribute release --token "${{secrets.APP_CENTER_IOS_API_TOKEN}}" --app "kishorerajasekar/testnative-1" --group "test" --file "ios/build/MyReactNative.ipa"
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
