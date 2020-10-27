@@ -24,4 +24,4 @@ jobs:
       - name: Deploy to App Center
         run: |
           npm install appcenter-cli@2.3.3
-          npx appcenter distribute release --token "${{secrets.APP_CENTER_ANDROID_API_TOKEN}}" --app "kishorerajasekar/testnative" --group "internalTester" --file "sudo $(find android/app/build/outputs/apk/debug -name "*.apk")"
+          npx appcenter distribute release --token "${{secrets.APP_CENTER_ANDROID_API_TOKEN}}" --app "kishorerajasekar/testnative" --group "internalTester" --file "$(find android/app/build/outputs/apk/debug -name "*.apk")"
