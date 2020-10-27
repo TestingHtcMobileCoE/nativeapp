@@ -23,6 +23,7 @@ jobs:
           
       - name: Deploy to App Center
         run: |
-          apkPath=echo $(find android/app/build/outputs/apk/debug -name "*.apk" | head -1)
+          apkPath=echo $(find android/app/build/outputs/apk/debug -name "*.apk")
           echo "Found ipa at $apkPath"
+          npm install appcenter-cli@2.3.3
           npx appcenter distribute release --token "${{secrets.APP_CENTER_ANDROID_API_TOKEN}}" --app "kishorerajasekar/testnative" --group "internalTester" --file "${apkPath}"
