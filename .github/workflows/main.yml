@@ -23,11 +23,6 @@ jobs:
           
       - name: Deploy to App Center
         run: |
-          npm install appcenter-cli@2.3.3
-          npx appcenter distribute release --token "${{secrets.APP_CENTER_ANDROID_API_TOKEN}}" --app "kishorerajasekar/testnative" --group "internalTester" --file "android/app/build/outputs/apk/debug/.apk"
-          
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/debug/
+          apkPath=echo $(find android/app/build/outputs/apk/debug -name "*.apk" | head -1)
+          echo "Found ipa at $apkPath"
+          npx appcenter distribute release --token "${{secrets.APP_CENTER_ANDROID_API_TOKEN}}" --app "kishorerajasekar/testnative" --group "internalTester" --file "${apkPath}"
