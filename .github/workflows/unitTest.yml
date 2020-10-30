@@ -17,12 +17,12 @@ jobs:
         run: |
           npm install
       - name: Unit Test
-        if: ${{ failure() }}
+        if: ${{ failure() || success() }}
         run: |
           npm run-script test
      
       - name: Upload Artifact
-        if: ${{ failure() }}
+        if: ${{ failure() || success() }}
         uses: actions/upload-artifact@v1
         with:
           name: unit_test_result
