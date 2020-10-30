@@ -17,6 +17,7 @@ jobs:
         run: |
           npm install
       - name: Unit Test
+        if: ${{ failure() }}
         run: |
           npm run-script test
      
