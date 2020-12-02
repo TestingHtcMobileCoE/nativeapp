@@ -29,7 +29,7 @@ jobs:
           CI_KEYCHAIN_PASSWORD: apple
           DEVELOPER_TEAM_ID: YA5NH562EY
           MATCH_PASSWORD: Heartsapplanepass
-        run: fastlane ios beta
+        run: cd ios & fastlane ios beta
       
       - name: Upload IPA
         uses: actions/upload-artifact@v1
