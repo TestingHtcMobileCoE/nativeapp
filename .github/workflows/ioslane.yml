@@ -1,0 +1,38 @@
+name: IOSBUILDLane
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+ IOS_RUN:
+      runs-on: macos-latest
+      steps: 
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: |
+          npm install
+      - name: Install pod dependencies
+        run: |
+          cd ios && npx pod-install
+      
+      - name: Create IPA Build
+        env:
+          APP_IDENTIFIER: com.htc.MyReactNative
+          APPLE_ID: systems@htcindia.com
+          GIT_REPO_URL: https://github.com/TestingHtcMobileCoE/HeartsAppCertificates.git
+          FASTLANE_PASSWORD: Htc@14112019
+          CI_KEYCHAIN_NAME: nativeKeychain
+          CI_KEYCHAIN_PASSWORD: apple
+          DEVELOPER_TEAM_ID: YA5NH562EY
+          MATCH_PASSWORD: Heartsapplanepass
+        run: fastlane ios beta
+      
+      - name: Upload IPA
+        uses: actions/upload-artifact@v1
+        with:
+          name: sample.ipa
+          path: fastlane/builds/
