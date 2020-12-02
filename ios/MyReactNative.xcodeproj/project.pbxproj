@@ -326,7 +326,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.htc.MyReactNative;
 				PRODUCT_NAME = MyReactNative;
-				PROVISIONING_PROFILE_SPECIFIER = "MyReactnative Dev Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.htc.MyReactNative";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
