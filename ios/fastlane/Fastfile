@@ -11,8 +11,8 @@
 #
 
 PROJECT_NAME = "MyReactNative"
-XCODE_PROJECT = "./ios/#{PROJECT_NAME}.xcodeproj"
-XCODE_WORKSPACE = "./ios/#{PROJECT_NAME}.xcworkspace"
+XCODE_PROJECT = ".#{PROJECT_NAME}.xcodeproj"
+XCODE_WORKSPACE = "./#{PROJECT_NAME}.xcworkspace"
 OUTPUT_DIRECTORY = "./fastlane/builds"
 IPA_DIRECTORY = "#{OUTPUT_DIRECTORY}/#{PROJECT_NAME}.ipa"
 TESTERS_FILE = "./fastlane/testers.txt"
