@@ -21,7 +21,7 @@ platform :ios do
 
     configuration_name = "Release"
     export_options_method = "development"
-    code_sign_identity = "iOS Development"
+    code_sign_identity = "iphone developer"
     MATCH_PASSWORD = "Heartsapplanepass"
     MY_APP_ID = "com.htc.MyReactNative"
     MY_PROFILE = "match Development #{"com.htc.MyReactNative"}"
@@ -33,8 +33,8 @@ platform :ios do
       :DEVELOPMENT_TEAM => MY_TEAM,
     }
     create_keychain(
-     name: "test",
-     password: "test",
+     name: "test1",
+     password: "test1",
      default_keychain: true,
      unlock: true,
      timeout: 3600,
@@ -46,8 +46,8 @@ platform :ios do
       type: "development",
       username: "systems@htcindia.com",
       team_id: "YA5NH562EY",
-      keychain_name: "test",
-      keychain_password: "test",
+      keychain_name: "test1",
+      keychain_password: "test1",
       readonly: true
     )
  update_code_signing_settings(
