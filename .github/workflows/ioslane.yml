@@ -12,24 +12,8 @@ jobs:
       runs-on: macos-latest
       steps: 
       - uses: actions/checkout@v2
-      - name: Install npm dependencies
-        run: |
-          npm install
-      - name: Install pod dependencies
-        run: |
-          cd ios && npx pod-install
-      
       - name: Create IPA Build
-        env:
-          APP_IDENTIFIER: com.htc.MyReactNative
-          APPLE_ID: systems@htcindia.com
-          GIT_REPO_URL: https://github.com/TestingHtcMobileCoE/HeartsAppCertificates.git
-          FASTLANE_PASSWORD: Htc@14112019
-          CI_KEYCHAIN_NAME: nativeKeychain
-          CI_KEYCHAIN_PASSWORD: apple
-          DEVELOPER_TEAM_ID: YA5NH562EY
-          MATCH_PASSWORD: Heartsapplanepass
-        run: cd ios & fastlane ios beta
+        run: cd ios & fastlane beta
       
       - name: Upload IPA
         uses: actions/upload-artifact@v1
