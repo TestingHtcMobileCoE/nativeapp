@@ -13,10 +13,8 @@ jobs:
       steps: 
       - uses: actions/checkout@v2
       - name: Create IPA Build
-        run: cd ios & fastlane beta
+        run: ls
+        
+      - name: test
+        run : cd ios & ls
       
-      - name: Upload IPA
-        uses: actions/upload-artifact@v1
-        with:
-          name: sample.ipa
-          path: fastlane/builds/
