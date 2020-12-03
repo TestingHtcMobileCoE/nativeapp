@@ -12,9 +12,6 @@ jobs:
       runs-on: macos-latest
       steps: 
       - uses: actions/checkout@v2
-      - name: Create IPA Build
-        run: ls
-        
       - name: test
         run : cd ios & ls
       
