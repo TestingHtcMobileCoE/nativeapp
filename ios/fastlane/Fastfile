@@ -21,7 +21,7 @@ platform :ios do
 
     configuration_name = "Release"
     export_options_method = "development"
-    code_sign_identity = "iPhone Developer"
+    code_sign_identity = "iOS Development"
     MATCH_PASSWORD = "Heartsapplanepass"
     MY_APP_ID = "com.htc.MyReactNative"
     MY_PROFILE = "match Development #{"com.htc.MyReactNative"}"
