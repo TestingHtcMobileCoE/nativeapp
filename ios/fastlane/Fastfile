@@ -33,8 +33,8 @@ platform :ios do
       :DEVELOPMENT_TEAM => MY_TEAM,
     }
     create_keychain(
-     name: "test1",
-     password: "test1",
+     name: "testkeychain",
+     password: "testkeychain",
      default_keychain: true,
      unlock: true,
      timeout: 3600,
@@ -46,8 +46,8 @@ platform :ios do
       type: "development",
       username: "systems@htcindia.com",
       team_id: "YA5NH562EY",
-      keychain_name: "test1",
-      keychain_password: "test1",
+      keychain_name: "testkeychain",
+      keychain_password: "testkeychain",
       readonly: true
     )
  update_code_signing_settings(
