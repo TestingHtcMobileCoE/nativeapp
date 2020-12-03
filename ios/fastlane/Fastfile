@@ -32,12 +32,22 @@ platform :ios do
       :PROVISIONING_PROFILE_SPECIFIER => MY_PROFILE,
       :DEVELOPMENT_TEAM => MY_TEAM,
     }
+    create_keychain(
+     name: "test",
+     password: "test",
+     default_keychain: true,
+     unlock: true,
+     timeout: 3600,
+     lock_when_sleeps: false
+    )
      match(
       app_identifier:"com.htc.MyReactNative",
       git_url: "https://github.com/TestingHtcMobileCoE/HeartsAppCertificates.git",
       type: "development",
       username: "systems@htcindia.com",
       team_id: "YA5NH562EY",
+      keychain_name: "test",
+      keychain_password: "test",
       readonly: true
     )
  update_code_signing_settings(
