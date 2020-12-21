@@ -1,0 +1,78 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+
+    configuration_name = "Release"
+    export_options_method = "development"
+    code_sign_identity = "iphone developer"
+    MATCH_PASSWORD = "Heartsapplanepass"
+    MY_APP_ID = "com.htc.MyReactNative"
+    MY_PROFILE = "match Development #{"com.htc.MyReactNative"}"
+    MY_TEAM = "YA5NH562EY"
+
+    settings_to_override = {
+      :BUNDLE_IDENTIFIER => MY_APP_ID,
+      :PROVISIONING_PROFILE_SPECIFIER => MY_PROFILE,
+      :DEVELOPMENT_TEAM => MY_TEAM,
+    }
+    create_keychain(
+     name: "testkeychain",
+     password: "testkeychain",
+     default_keychain: true,
+     unlock: true,
+     timeout: 3600,
+     lock_when_sleeps: false
+    )
+     match(
+      app_identifier:"com.htc.MyReactNative",
+      git_url: "https://github.com/TestingHtcMobileCoE/HeartsAppCertificates.git",
+      type: "development",
+      username: "systems@htcindia.com",
+      team_id: "YA5NH562EY",
+      keychain_name: "testkeychain",
+      keychain_password: "testkeychain",
+      readonly: true
+    )
+ update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "MyReactNative.xcodeproj",
+      code_sign_identity: "iPhone Developer",
+      bundle_identifier: MY_APP_ID,
+      profile_name: MY_PROFILE
+    )
+
+gym(
+      scheme: "MyReactNative",
+      workspace: "MyReactNative.xcworkspace",
+      silent: true,
+      configuration: "Release",
+      xcargs: `#{settings_to_override} -UseNewBuildSystem=YES`,
+      output_directory: "./fastlane/builds",
+      output_name: "MyReactNative.ipa",
+      export_options: {
+        method: "development",
+        signingStyle: "manual",
+        provisioningProfiles: { 
+            MY_APP_ID => MY_PROFILE
+        }
+      }
+)    
+  end
+end
