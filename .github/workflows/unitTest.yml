@@ -4,8 +4,10 @@ name: Unit Test/CI-CD
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  create:
-    tags:
+
+  push:
+    tags:        
+      - V*
 jobs:
  Android_Relese:
     runs-on: ubuntu-latest
