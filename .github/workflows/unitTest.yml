@@ -13,17 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
-      - name: Install npm dependencies
+      - name: Deploy to App Center
         run: |
-          npm install
-      - name: Unit Test
-        if: ${{ failure() || success() }}
-        run: |
-          npm run-script test
-     
-      - name: Upload Artifact
-        if: ${{ failure() || success() }}
-        uses: actions/upload-artifact@v1
-        with:
-          name: unit_test_result
-          path: coverage/lcov-report
+          npm install appcenter-cli@2.3.3
+          npx appcenter distribute release --token "7c001b2593dcd83e14b8485aa7492970b6c81d56" --app "kishorerajasekar/testnative-1" --group "internalTester","Collaborators" --file "$(find ios -name "*.ipa")"
+
