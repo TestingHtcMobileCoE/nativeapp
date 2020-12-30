@@ -6,8 +6,8 @@ name: Unit Test/CI-CD
 on:
 
   push:
-    tags:        
-      - V*
+    branches: master        
+
 jobs:
  Android_Relese:
     runs-on: ubuntu-latest
@@ -16,5 +16,5 @@ jobs:
       - name: Deploy to App Center
         run: |
           npm install appcenter-cli@2.3.3
-          npx appcenter distribute release --token "7c001b2593dcd83e14b8485aa7492970b6c81d56" --app "kishorerajasekar/testnative-1" --group "test","Collaborators" --file "$(find ios -name "*.ipa")"
+          npx appcenter distribute release --token "7c001b2593dcd83e14b8485aa7492970b6c81d56" --app "kishorerajasekar/testnative-1" --group "test" --file "$(find ios -name "*.ipa")"
 
